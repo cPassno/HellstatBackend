@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Planet Statistics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-section { margin-bottom: 15px; }
+        label { margin-right: 10px; }
+        canvas { margin-top: 30px; }
+    </style>
+</head>
+<body>
+<h1>Planet Statistics Dashboard</h1>
+
+<div class="form-section">
+    <label>Start Date: <input type="date" id="startDate" min="2025-05-22"></label>
+    <label>End Date: <input type="date" id="endDate" min="2025-05-22"></label>
+</div>
+
+<div class="form-section">
+    <label>Planet:
+        <select id="planetSelect">
+            <option disabled selected>Loading planets...</option>
+        </select>
+    </label>
+</div>
+
+<div class="form-section">
+    <label>Select Data Columns:</label><br>
+    <label><input type="checkbox" value="players" checked> Players</label>
+    <label><input type="checkbox" value="deaths" checked> Deaths</label>
+    <label><input type="checkbox" value="missionsWon"> Missions Won</label>
+    <label><input type="checkbox" value="missionSuccessRate"> Mission Success Rate</label>
+</div>
+
+<button id="loadDataBtn">Load Data</button>
+
+<canvas id="planetChart" width="1000" height="400"></canvas>
+
+<script src="/js/graph.js"></script>
+</body>
+</html>
