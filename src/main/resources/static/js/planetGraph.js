@@ -35,9 +35,7 @@ function fetchPlanetData(planetIndex, startDate, endDate) {
 }
 
 function transformData(data, metrics) {
-    // Format timestamp as string for category X axis
     const labels = data.map(row => row.timestamp.slice(0, 16).replace("T", " "));
-
     const datasets = metrics.map(metric => ({
         label: metric,
         data: data.map(row => row[metric]),
@@ -46,7 +44,6 @@ function transformData(data, metrics) {
         tension: 0.3,
         yAxisID: `y_${metric}`
     }));
-
     return { labels, datasets };
 }
 
@@ -64,10 +61,41 @@ function renderChart(data) {
         fill: false,
         tension: 0.3,
         borderWidth: 2,
-        pointRadius: 4,
-        pointHoverRadius: 6,
-        yAxisID: i === 0 ? 'y' : 'y1', // assign first dataset to left y, others right y
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        yAxisID: i === 0 ? 'y' : `y${i}`,
     }));
+
+    const yScales = {};
+
+    datasets.forEach((dataset, index) => {
+        const axisId = dataset.yAxisID;
+
+        let scaleOptions = {
+            type: 'linear',
+            position: index === 0 ? 'left' : 'right',
+            grid: {
+                color: '#777',
+                drawOnChartArea: index === 0
+            },
+            title: {
+                display: true,
+                text: dataset.label,
+                color: '#ffffff',
+                font: { size: 14, weight: 'bold' }
+            },
+            ticks: {
+                color: '#ffffff'
+            }
+        };
+
+        if (['kdr', 'missionSuccessRate'].includes(dataset.label)) {
+            scaleOptions.min = 70;
+            scaleOptions.max = 95;
+        }
+
+        yScales[axisId] = scaleOptions;
+    });
 
     const ctx = chartCanvas.getContext('2d');
     if (chartInstance) chartInstance.destroy();
@@ -82,7 +110,7 @@ function renderChart(data) {
             responsive: true,
             interaction: {
                 mode: 'nearest',
-                intersect: false,
+                intersect: false
             },
             plugins: {
                 legend: {
@@ -91,7 +119,7 @@ function renderChart(data) {
                         font: {
                             size: 14
                         },
-                        color: '#333',
+                        color: '#ffffff',
                         boxWidth: 15,
                         padding: 20
                     }
@@ -100,67 +128,39 @@ function renderChart(data) {
                     enabled: true,
                     mode: 'nearest',
                     intersect: false,
-                    backgroundColor: 'rgba(0,0,0,0.75)',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    backgroundColor: '#222',
                     titleFont: { size: 16, weight: 'bold' },
                     bodyFont: { size: 14 },
-                    padding: 10,
+                    padding: 10
                 }
             },
             scales: {
                 x: {
                     type: 'category',
                     grid: {
-                        color: '#eee'
+                        color: '#777'
                     },
                     title: {
                         display: true,
                         text: 'Timestamp',
-                        color: '#666',
+                        color: '#ffffff',
                         font: { size: 14, weight: 'bold' }
                     },
                     ticks: {
-                        color: '#666',
+                        color: '#777',
                         maxRotation: 45,
                         minRotation: 45,
-                        maxTicksLimit: 10,
+                        maxTicksLimit: 10
                     }
                 },
-                y: {
-                    type: 'linear',
-                    position: 'left',
-                    grid: {
-                        color: '#eee'
-                    },
-                    title: {
-                        display: true,
-                        text: data.datasets[0].label || 'Y Axis',
-                        color: '#666',
-                        font: { size: 14, weight: 'bold' }
-                    },
-                    ticks: {
-                        color: '#444'
-                    }
-                },
-                y1: {
-                    type: 'linear',
-                    position: 'right',
-                    grid: {
-                        drawOnChartArea: false,
-                    },
-                    title: {
-                        display: true,
-                        text: data.datasets[1]?.label || 'Y1 Axis',
-                        color: '#666',
-                        font: { size: 14, weight: 'bold' }
-                    },
-                    ticks: {
-                        color: '#444'
-                    }
-                }
+                ...yScales
             }
         }
     });
 }
+
 
 const COLORS = [
     'rgba(54, 162, 235, 0.8)', // Blue

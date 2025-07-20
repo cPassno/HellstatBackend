@@ -2,43 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Planet Statistics Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .form-section { margin-bottom: 15px; }
-        label { margin-right: 10px; }
-        canvas { margin-top: 30px; }
-    </style>
+    <title>Hellstat</title>
 </head>
+<link rel="stylesheet" href="/css/styles.css">
 <body>
-<h1>Planet Statistics Dashboard</h1>
-
-<div class="form-section">
-    <label>Start Date: <input type="date" id="startDate" min="2025-05-22"></label>
-    <label>End Date: <input type="date" id="endDate" min="2025-05-22"></label>
+<div class="navbar">
+    <a href="/index.html">Home</a>
+    <a href="/planetStats.html">Planet Stats</a>
+    <a href="/factionStats.html">Faction Stats</a>
+    <a href="/video.html">Video</a>
 </div>
 
-<div class="form-section">
-    <label>Planet:
-        <select id="planetSelect">
-            <option disabled selected>Loading planets...</option>
-        </select>
-    </label>
-</div>
+<h1>Welcome to Hellstat</h1>
+<p>My name is Colin Passno, and Hellstat was a senior project for my BAS in software development.
+    <p>You can use the links at the top of the page to view the data I've collected for this project, organized either for an individual planet, or cumulatively
+    for the three factions. There is also a recording of my final presentation for this project.</p>
+</p>
+<p>Hellstat is a website that collects and displays various statistics about the current state of the game Helldivers 2.
+    A program collects information like player counts and kills from several APIs and stores that information in a database.
+    The website then displays this information to the user, along with some statistics, like Kill/death ratios and player spread.
+    This project is hosted entirely on Amazon Web Services, and consists of a Lambda function, RDS database, and EC2 instance.</p>
 
-<div class="form-section">
-    <label>Select Data Columns:</label><br>
-    <label><input type="checkbox" value="players" checked> Players</label>
-    <label><input type="checkbox" value="deaths" checked> Deaths</label>
-    <label><input type="checkbox" value="missionsWon"> Missions Won</label>
-    <label><input type="checkbox" value="missionSuccessRate"> Mission Success Rate</label>
-</div>
+    <p>The Lambda function executes three external API calls and writes to the database, and is written in Node.js.
+    The database itself is a simple MySQL database hosted on AWS RDS.
+    The website is hosted on an EC2 instance running Amazon Linux 2023.
+    The webserver is a java springboot application that both serves
+    the HTML and JS files that make up the website and hosts
+    API endpoints for accessing the database’s information.</p>
 
-<button id="loadDataBtn">Load Data</button>
-
-<canvas id="planetChart" width="1000" height="400"></canvas>
-
-<script src="/js/graph.js"></script>
 </body>
 </html>

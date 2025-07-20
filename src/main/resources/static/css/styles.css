@@ -1,0 +1,76 @@
+/* styles.css */
+
+body {
+    background-color: #1c1c1c;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1, label {
+    color: #ffffff;
+    text-align: center;
+}
+
+.form-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+label, input, select, button {
+    font-size: 16px;
+    margin: 5px;
+}
+
+input, select, button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #ffffff;
+}
+
+input[type="date"] {
+    background-color: #2a2a2a;
+}
+
+button:hover {
+    background-color: #555;
+    cursor: pointer;
+}
+
+canvas {
+    margin-top: 40px;
+    background-color: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 8px;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #111;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    margin-bottom: 30px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+    background-color: #333;
+    border-radius: 4px;
+}

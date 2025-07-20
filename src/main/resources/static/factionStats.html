@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hellstat - Faction Statistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-section { margin-bottom: 15px; }
+        label { margin-right: 10px; }
+        canvas { margin-top: 30px; }
+    </style>
+</head>
+<link rel="stylesheet" href="/css/styles.css">
+<body>
+<div class="navbar">
+    <a href="/index.html">Home</a>
+    <a href="/planetStats.html">Planet Stats</a>
+    <a href="/factionStats.html">Faction Stats</a>
+    <a href="/video.html">Video</a>
+</div>
+
+<h1>Faction Statistics</h1>
+
+<div class="form-section">
+    <label>Start Date: <input type="date" id="startDate" min="2025-05-22" value="2025-05-22"></label>
+    <label>End Date: <input type="date" id="endDate" min="2025-05-22" value="2025-05-30"></label>
+</div>
+
+<div class="form-section">
+    <label>Select Metric:</label><br>
+    <label><input type="radio" name="metric" value="players" checked> Players</label>
+    <label><input type="radio" name="metric" value="kdr"> K/D Ratio</label>
+    <label><input type="radio" name="metric" value="missionSuccessRate"> Mission Success Rate</label>
+</div>
+
+<button id="loadDataBtn">Load Data</button>
+
+<canvas id="factionChart" width="1000" height="400"></canvas>
+
+<script src="/js/factionGraph.js"></script>
+</body>
+</html>
